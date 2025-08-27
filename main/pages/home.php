@@ -20,6 +20,8 @@ echo '<table border="1" id="playerTable">
             <th>TOTAL DEATHS</th>
             <th>TOTAL MATCHES</th>
             <th>TOTAL WINS</th>
+            <th>KDA</th>
+            <th>WINRATE</th>
         </tr>';
 
     // fetching data
