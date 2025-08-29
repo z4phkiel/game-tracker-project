@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tracker Site</title>
+</head>
+<body>
+
+    <h1>Player List</h1>
+    <div id="playerlist">
+
+    </div>
+</body>
+
+<script>
+
+    //fetch data from sql using custom api
+    async function loadPlayerlist() {
+        try {
+            const response = await fetch("/api/getplayers.php");
+            const players = await response.json();
+            const container = document.getElementById("playerlist");
+
+            players.forEach(player => {
+
+                //winrate and kda calcs
+                const winrate = (player.wins / player.matches * 100).toFixed(2);
+                const playerkd = (player.kills / Math.max(1, player.deaths)).toFixed(2);
+                
+                const playerDiv = document.createElement("div");
+
+                playerDiv.innerHTML = `
+                <h3>${player.player_name}</h3>`;
+
+                    container.appendChild(playerDiv);
+            })
+
+
+        } catch (error) {
+            console.error("error: " + error)
+        }
+        
+    }
+
+    loadPlayerlist();
+
+
+</script>
+</html>
