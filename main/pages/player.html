@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>STAT TRACKER</h1><br>
+
+    <h1 id="playername">...</h1>
+    <p>Kills: <span id="playerkills"></span></p>
+    <p>Deaths: <span id="playerdeaths"></span></p>
+    <p>K/D: <span id="playerkd"></span></p>
+    <p>Matches: <span id="playermatches"></span></p>
+    <p>Wins: <span id="playerwins"></span></p>
+    <p>Winrate: <span id="playerwinrate"></span></p>
+    
+</body>
+
+<script>
+
+// get player stat
+async function loadPlayerStat () {
+
+    const getId = new URLSearchParams(window.location.search);
+    const playerId = getId.get("id");
+
+    if (!playerId) {
+        document.getElementById("playername").innerText = "No player found.";
+        return;
+    }
+
+    //fetch player info
+    try {
+
+        const data = await fetch(`/api/getplayers.php?id=${playerId}`)
+        const player = await data.json();
+
+        //winrate and kda calcs
+        const winrate = (player.wins / player.matches * 100).toFixed(2);
+        const playerkd = (player.kills / Math.max(1, player.deaths)).toFixed(2);
+
+        document.title = `${player.player_name} 's stats`;
+        document.getElementById("playername").innerText = `${player.player_name}`;
+        document.getElementById("playerkills").innerText = `${player.kills}`;
+        document.getElementById("playerdeaths").innerText = `${player.deaths}`;
+        document.getElementById("playerkd").innerText = `${playerkd}`;
+        document.getElementById("playermatches").innerText = `${player.matches}`;
+        document.getElementById("playerwins").innerText = `${player.wins}`;
+        document.getElementById("playerwinrate").innerText = `${winrate}%`;
+
+    } catch (error) {
+        console.error("error: " + error);
+    }
+}
+
+loadPlayerStat();
+    
+</script>
+</html>

@@ -7,31 +7,34 @@
 </head>
 <body>
 
+
     <h1>Player List</h1>
+
+    <!-- player list -->
     <div id="playerlist">
 
     </div>
 </body>
+
+
 
 <script>
 
     //fetch data from sql using custom api
     async function loadPlayerlist() {
         try {
-            const response = await fetch("/api/getplayers.php");
-            const players = await response.json();
+            const data = await fetch("/api/getplayers.php");
+            const players = await data.json();
             const container = document.getElementById("playerlist");
 
             players.forEach(player => {
 
-                //winrate and kda calcs
-                const winrate = (player.wins / player.matches * 100).toFixed(2);
-                const playerkd = (player.kills / Math.max(1, player.deaths)).toFixed(2);
+                
                 
                 const playerDiv = document.createElement("div");
 
                 playerDiv.innerHTML = `
-                <h3>${player.player_name}</h3>`;
+                <a href="player.html?id=${player.player_id}">${player.player_name}</a>`;
 
                     container.appendChild(playerDiv);
             })
