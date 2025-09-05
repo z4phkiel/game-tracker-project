@@ -4,7 +4,7 @@ require_once __DIR__ . '/../db/connection.php';
 
 
 //initialization
-$db = new database();
+$db = new Database();
 $conn = $db->connect();
 
 $sql = "SELECT * FROM playerstats";
@@ -20,8 +20,7 @@ echo '<table border="1" id="playerTable">
             <th>TOTAL DEATHS</th>
             <th>TOTAL MATCHES</th>
             <th>TOTAL WINS</th>
-            <th>KDA</th>
-            <th>WINRATE</th>
+            <th>ACTION</th>
         </tr>';
 
     // fetching data
@@ -35,6 +34,7 @@ echo '<table border="1" id="playerTable">
         <td>' . $row['deaths']. '</td>
         <td>' . $row['matches'] . '</td>
         <td>' . $row['wins'] . '</td>
+        <td><a href="update.php?id=' . $row['player_id']. '">EDIT</a></td>
         </tr>';
 
     

@@ -4,12 +4,12 @@
 
 
     // initialization
-    $db = new database();
+    $db = new Database();
     $conn = $db->connect();
 
 
     // request method
-    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $player = $_POST['player_name'];
         $kills = $_POST['kills'];
         $deaths = $_POST['deaths'];
