@@ -1,4 +1,10 @@
 <?php
+
+
+
+// for fetching values using javascript, use this api
+
+
 require_once __DIR__ .'/../main/db/connection.php';
 
 $db = new Database();

@@ -1,5 +1,6 @@
 <?php
-
+    
+    session_start();
     require_once __DIR__ . '/../db/connection.php';
 
 
@@ -25,10 +26,17 @@
     $stmt->bindParam(3, $deaths);
     $stmt->bindParam(4, $matches);
     $stmt->bindParam(5, $wins);
-
+    
     $stmt->execute();
+
+    $_SESSION['insert_msg'] = "Player " . htmlspecialchars($player) . " added";
+
+
+
+    header("Location: home.php");
+    exit;
             
-            echo'Player ' . '"'. $player .'"'. ' stats inserted!';
+            
         } catch (PDOException $e) {
             echo 'Error inserting player stat' . $e->getMessage();
         }
@@ -48,6 +56,7 @@
     <title>STAT INPUT</title>
 </head>
 <body>
+    <a href="home.php"> Database </a>
 
 
     <form action="insert.php" method="POST">
